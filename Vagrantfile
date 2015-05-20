@@ -54,7 +54,7 @@ end
 Vagrant.configure(2) do |config|
   unless Vagrant.has_plugin?("vagrant-berkshelf")
     puts "WARN : You should consider installing chefdk and vagrant-berkshelf, I'm downloading chef dependencies a bit hackily (means it's dirty)"
-    %w(apt).each { |cookbook| download_cookbook cookbook }
+    %w(apt docker).each { |cookbook| download_cookbook cookbook }
   end
   optimization_by_caching(config)
   config.vm.box = "ubuntu/trusty64"
