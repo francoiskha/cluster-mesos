@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 machines = {
-            "consul" => {:ip => "192.168.33.201", :mem => 512, :roles => ["consul_bootstrap", "docker_registry"]},
-            "mesos-master1" => {:ip => "192.168.33.10", :mem => 512, :roles => ["mesos_master"]},
+            "consul" => {:ip => "192.168.33.201", :mem => 1024, :roles => ["consul_bootstrap", "docker_registry"]},
+            "mesos-master1" => {:ip => "192.168.33.10", :mem => 1024, :roles => ["mesos_master","consul_client","mesos_slave"]},
             "mesos-master2" => {:ip => "192.168.33.11", :mem => 512, :roles => ["mesos_master"]},
             "mesos-master3" => {:ip => "192.168.33.12", :mem => 512, :roles => ["mesos_master"]},
             "mesos-slave1" => {:ip => "192.168.33.101", :mem => 1024, :roles => ["consul_client","mesos_slave"]},
@@ -62,6 +62,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--memory", info[:mem]]
       end
       cfg.vm.provision "chef_zero" do |chef|
+        chef.log_level = "debug"
         chef.cookbooks_path = ["cookbooks",".chef_dependencies"]
         chef.roles_path = "roles"
         chef.formatter = "doc" # nice chef convergence ouput

@@ -1,10 +1,12 @@
 include_recipe 'cluster-mesos::docker_install'
 include_recipe 'cluster-mesos::mesos_install'
-execute 'docker build -t boune/nginx /vagrant/docker/nginx-hello/'
-execute 'sudo docker build -t boune/nginxtodo /vagrant/docker/nginx-todo/'
-execute 'sudo docker build -t boune/todolist /vagrant/docker/todolist/'
-execute 'sudo docker pull mongo:3.0.2'
-execute 'sudo docker pull tutum/hello-world'
+images = %w(boune/nginx boune/nginxtodo boune/todolist tutum/hello-world mongo:3.0.2)
+images.each do |image|
+  docker_image image do
+    registry 'http://192.168.33.201:5000/'
+    action :pull_if_missing
+  end
+end
 file '/etc/mesos/zk' do
   content "zk://192.168.33.10:2181,192.168.33.11:2181,192.168.33.12:2181/mesos"
   mode "555"
