@@ -62,7 +62,7 @@ Vagrant.configure(2) do |config|
         vb.customize ["modifyvm", :id, "--memory", info[:mem]]
       end
       cfg.vm.provision "chef_zero" do |chef|
-        chef.log_level = "debug"
+        #chef.log_level = "debug"
         chef.cookbooks_path = ["cookbooks",".chef_dependencies"]
         chef.roles_path = "roles"
         chef.formatter = "doc" # nice chef convergence ouput
