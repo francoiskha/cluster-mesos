@@ -1,9 +1,10 @@
 include_recipe 'cluster-mesos::docker_install'
 include_recipe 'cluster-mesos::mesos_install'
-images = %w(boune/nginx boune/nginxtodo boune/todolist tutum/hello-world mongo:3.0.2)
+images = node['mesos']['docker']['images']
 images.each do |image|
-  docker_image image do
-    registry 'http://192.168.33.201:5000/'
+  docker_image image[:name] do
+    registry '192.168.33.201:5000'
+    tag image[:tag] unless image[:tag].nil?
     action :pull_if_missing
   end
 end
