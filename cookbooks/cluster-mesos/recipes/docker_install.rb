@@ -18,4 +18,5 @@ template '/etc/default/docker' do
 end
 service 'docker' do
   action :nothing
+  supports :restart => true
 end

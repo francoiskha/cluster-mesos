@@ -6,7 +6,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "boune/nginxtodo",
+      "image": "192.168.33.201:5000/nginx-todo",
        "network": "BRIDGE",
        "privileged": true,
        "portMappings": [
@@ -15,7 +15,7 @@
     }
   },
   "env": {
-    "SERVICE_NAME": "nginx-hello",
+    "SERVICE_NAME": "nginx-todo",
     "SERVICE_TAGS": "www"
   },
   "constraints": [["hostname", "UNIQUE"]],

@@ -21,4 +21,3 @@ images.each do |image|
   execute "docker tag -f #{image[:name]}:#{tag} #{node['vagrant']['ipaddress']}:5000/#{image[:name]}:#{tag}"
   execute "docker push #{node['vagrant']['ipaddress']}:5000/#{image[:name]}:#{tag}"
 end
-
